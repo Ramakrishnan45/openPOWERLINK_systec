@@ -189,6 +189,33 @@ tOplkError oplk_execNmtCommand(tNmtEvent nmtEvent_p)
     return ret;
 }
 
+#if defined(CONFIG_INCLUDE_NMT_MN)
+//------------------------------------------------------------------------------
+/**
+\brief  Execute a NMT command
+
+The function executes a NMT command
+
+\param  nodeId_p              Id of the node which receives NMT command
+\param  nmtCommand_p          NMT command to send.
+
+\return The function returns a tOplkError error code.
+
+\ingroup module_api
+*/
+//------------------------------------------------------------------------------
+tOplkError oplk_execRemoteNmtCommand(UINT nodeId_p, tNmtCommand  nmtCommand_p)
+{
+	if ((nodeId_p == 0) || (nodeId_p > 255) )
+    {
+		return kErrorApiInvalidParam;
+	}
+	else
+	{
+		return nmtmnu_sendNmtCommand(nodeId_p, nmtCommand_p);
+	}
+}
+#endif
 //------------------------------------------------------------------------------
 /**
 \brief  Link application variable into the OD

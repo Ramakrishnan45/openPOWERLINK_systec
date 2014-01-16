@@ -48,6 +48,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <oplk/led.h>
 #include <oplk/cfm.h>
 #include <oplk/event.h>
+#if defined(CONFIG_INCLUDE_NMT_MN)
+#include <user/nmtu.h>
+#endif
 
 //------------------------------------------------------------------------------
 // const defines
@@ -333,6 +336,9 @@ extern "C" {
 OPLKDLLEXPORT tOplkError oplk_init(tOplkApiInitParam* pInitParam_p);
 OPLKDLLEXPORT tOplkError oplk_shutdown(void);
 OPLKDLLEXPORT tOplkError oplk_execNmtCommand(tNmtEvent NmtEvent_p);
+#if defined(CONFIG_INCLUDE_NMT_MN)
+OPLKDLLEXPORT tOplkError oplk_execRemoteNmtCommand(UINT nodeId_p, tNmtCommand  nmtCommand_p);
+#endif
 OPLKDLLEXPORT tOplkError oplk_linkObject(UINT objIndex_p, void* pVar_p, UINT* pVarEntries_p,
                                          tObdSize* pEntrySize_p, UINT firstSubindex_p);
 OPLKDLLEXPORT tOplkError oplk_readObject(tSdoComConHdl* pSdoComConHdl_p, UINT nodeId_p, UINT index_p,
