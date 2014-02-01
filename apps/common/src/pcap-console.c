@@ -90,7 +90,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //============================================================================//
 //            P U B L I C   F U N C T I O N S                                 //
 //============================================================================//
-
+#ifdef __cplusplus
+extern "C" {
+#endif
 //------------------------------------------------------------------------------
 /**
 \brief  Select PCAP device
@@ -175,7 +177,9 @@ tOplkError selectPcapDevice(char *pDevName_p)
 ///\}
 
 
-
+#ifdef __cplusplus
+}
+#endif
 
 
 
