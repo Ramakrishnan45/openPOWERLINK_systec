@@ -43,6 +43,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //------------------------------------------------------------------------------
 #include <oplk/oplkinc.h>
 #include <oplk/oplk.h>
+#include <oplk/debugstr.h>
 #include <oplk/nmt.h>
 #include <oplk/debugstr.h>
 
