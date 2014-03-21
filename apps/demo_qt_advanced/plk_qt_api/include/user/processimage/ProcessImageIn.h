@@ -63,6 +63,14 @@ public:
 
 	/**
 	 * \brief   Sets the value for a channel in the ProcessImage.
+	 * \param[in] channelName
+	 * \param[in] value
+	 * \param[in] dataLenBits Length of the value in bits
+	 */
+	void SetRawValue(const std::string& channelName, const void* const value, const size_t dataLenBits);
+
+	/**
+	 * \brief   Sets the value for a channel in the ProcessImage.
 	 *
 	 * \param[in] channelName  The name of the Channel.
 	 * \param[in] value        The value to be assigned for the Channel.

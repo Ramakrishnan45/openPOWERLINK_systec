@@ -154,6 +154,16 @@ public:
 	std::vector<BYTE> GetRawValue(const std::string& channelName) const;
 
 	/**
+	 * \brief   Returns the value that the Channel holds.
+	 * \param[in] channelName
+	 * \param[out] value
+	 * \param[in] dataLen
+	 */
+	void GetRawValue(const std::string& channelName,
+						void* const value,
+						size_t dataLen) const;
+
+	/**
 	 * \brief   Returns the value at the given BYTE and bit offsets.
 	 *
 	 * \param[in] bitSize     Size of the data in bits.
