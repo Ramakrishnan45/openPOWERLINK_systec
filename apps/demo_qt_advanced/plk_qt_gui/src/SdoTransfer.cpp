@@ -4,6 +4,11 @@
 
 \brief  Implements the SDO Transfer user interface actions and results.
 
+\todo
+		- Implement V-String and QString
+		- Validate signed values.
+		- Implement colours for the log
+
 \author Ramakrishnan Periyakaruppan
 
 \copyright (c) 2014, Kalycito Infotech Private Limited
