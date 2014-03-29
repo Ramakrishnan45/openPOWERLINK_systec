@@ -51,24 +51,24 @@ namespace IECDataType
 	enum IECDataType
 	{
 		UNDEFINED = 0,  ///< Undefined (Used in error handling)
-		IEC_BOOL,       ///< Bool,BitString (1 bit)
-		IEC_BYTE,       ///< Byte (8 bit)
-		IEC_CHAR,       ///< Char (8 bit)
-		IEC_WORD,       ///< Word (16 bit)
-		IEC_DWORD,      ///< Dword (32 bit)
-		IEC_LWORD,      ///< Lword (64 bit)
-		IEC_SINT,       ///< Signed short integer (1 byte)
-		IEC_INT,        ///< Signed integer (2 byte)
-		IEC_DINT,       ///< Double integer (4 byte)
-		IEC_LINT,       ///< Long integer (8 byte)
-		IEC_USINT,      ///< Unsigned short integer (1 byte)
-		IEC_UINT,       ///< Unsigned integer (2 byte)
-		IEC_UDINT,      ///< Unsigned double integer (4 byte)
-		IEC_ULINT,      ///< Unsigned long integer (8 byte)
-		IEC_REAL,       ///< REAL (4 byte)
-		IEC_LREAL,      ///< LREAL (8 byte)
-		IEC_STRING,     ///< Variable length single byte character string
-		IEC_WSTRING     ///< Variable length double byte character string
+		BOOL,       ///< Bool,BitString (1 bit)
+		BYTE,       ///< Byte (8 bit)
+		CHAR,       ///< Char (8 bit)
+		WORD,       ///< Word (16 bit)
+		DWORD,      ///< Dword (32 bit)
+		LWORD,      ///< Lword (64 bit)
+		SINT,       ///< Signed short integer (1 byte)
+		INT,        ///< Signed integer (2 byte)
+		DINT,       ///< Double integer (4 byte)
+		LINT,       ///< Long integer (8 byte)
+		USINT,      ///< Unsigned short integer (1 byte)
+		UINT,       ///< Unsigned integer (2 byte)
+		UDINT,      ///< Unsigned double integer (4 byte)
+		ULINT,      ///< Unsigned long integer (8 byte)
+		REAL,       ///< REAL (4 byte)
+		LREAL,      ///< LREAL (8 byte)
+		STRING,     ///< Variable length single byte character string
+		WSTRING     ///< Variable length double byte character string
 	};
 
 } // namespace IECDataType
