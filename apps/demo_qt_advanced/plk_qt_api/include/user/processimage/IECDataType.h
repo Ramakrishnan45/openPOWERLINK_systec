@@ -51,24 +51,24 @@ namespace IECDataType
 	enum IECDataType
 	{
 		UNDEFINED = 0,  ///< Undefined (Used in error handling)
-		BOOL,       ///< Bool,BitString (1 bit)
-		BYTE,       ///< Byte (8 bit)
-		CHAR,       ///< Char (8 bit)
-		WORD,       ///< Word (16 bit)
-		DWORD,      ///< Dword (32 bit)
-		LWORD,      ///< Lword (64 bit)
-		SINT,       ///< Signed short integer (1 byte)
-		INT,        ///< Signed integer (2 byte)
-		DINT,       ///< Double integer (4 byte)
-		LINT,       ///< Long integer (8 byte)
-		USINT,      ///< Unsigned short integer (1 byte)
-		UINT,       ///< Unsigned integer (2 byte)
-		UDINT,      ///< Unsigned double integer (4 byte)
-		ULINT,      ///< Unsigned long integer (8 byte)
-		REAL,       ///< REAL (4 byte)
-		LREAL,      ///< LREAL (8 byte)
-		STRING,     ///< Variable length single byte character string
-		WSTRING     ///< Variable length double byte character string
+		Bool,           ///< Bool,BitString (1 bit)
+		Byte,           ///< Byte (8 bit)
+		Char,           ///< Char (8 bit)
+		Word,           ///< Word (16 bit)
+		DWord,          ///< Dword (32 bit)
+		LWord,          ///< Lword (64 bit)
+		SInt,           ///< Signed short integer (1 byte)
+		Int,            ///< Signed integer (2 byte)
+		DInt,           ///< Double integer (4 byte)
+		LInt,           ///< Long integer (8 byte)
+		USInt,          ///< Unsigned short integer (1 byte)
+		UInt,           ///< Unsigned integer (2 byte)
+		UDInt,          ///< Unsigned double integer (4 byte)
+		ULInt,          ///< Unsigned long integer (8 byte)
+		Real,           ///< REAL (4 byte)
+		LReal,          ///< LREAL (8 byte)
+		String,         ///< Variable length single byte character string
+		WString         ///< Variable length double byte character string
 	};
 
 } // namespace IECDataType
