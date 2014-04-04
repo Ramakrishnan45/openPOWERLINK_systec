@@ -127,6 +127,13 @@ SdoTransfer::SdoTransfer(QWidget *parent) :
 void SdoTransfer::on_read_toggled(bool selected)
 {
 	this->ui.sdoResultValue->clear();
+	this->ui.sdoResultValueHex->clear();
+
+	if (!selected)
+		this->ui.sdoResultValueHex->hide();
+	else
+		this->ui.sdoResultValueHex->show();
+
 	this->ui.sdoResultValue->setDisabled(selected);
 }
 
@@ -166,6 +173,9 @@ void SdoTransfer::on_executeTransfer_clicked()
 	{
 		sdoAccessType = kSdoAccessTypeRead;
 		this->ui.sdoResultValue->clear();
+		this->ui.sdoResultValueHex->clear();
+
+		this->sdoTransferData = QVariant(this->metaDataTypeIndex, NULL);
 	}
 	else if (this->ui.write->isChecked())
 	{
@@ -228,7 +238,10 @@ void SdoTransfer::on_executeTransfer_clicked()
 		//Local OD access successful
 		this->ui.transferStatus->setText("Transfer completed");
 		this->UpdateLog(QString("SdoTransfer completed successfully"));
-		this->UpdateSdoTransferReturnValue();
+
+		if (this->ui.read->isChecked())
+			this->UpdateSdoTransferReturnValue();
+
 		this->ui.groupBoxSdoTransfer->setEnabled(true);
 	}
 	else if (oplkRet == kErrorApiTaskDeferred)
@@ -278,7 +291,9 @@ void SdoTransfer::HandleSdoTransferFinished(const SdoTransferResult result)
 	{
 		this->ui.transferStatus->setText("Transfer Completed");
 		qDebug("Writedata %u", (*((quint64*)(&(this->sdoTransferData)))));
-		this->UpdateSdoTransferReturnValue();
+
+		if (this->ui.read->isChecked())
+			this->UpdateSdoTransferReturnValue();
 	}
 
 	this->ui.groupBoxSdoTransfer->setEnabled(true);
@@ -287,6 +302,7 @@ void SdoTransfer::HandleSdoTransferFinished(const SdoTransferResult result)
 void SdoTransfer::on_dataType_currentIndexChanged(const QString &dataType)
 {
 	this->ui.sdoResultValue->clear();
+	this->ui.sdoResultValueHex->clear();
 	this->metaDataTypeIndex = SdoTransfer::dataTypeMap[dataType];
 	this->SetMaskForValue();
 	this->ui.sdoResultValue->setValidator(this->sdoValueValidator);
@@ -296,9 +312,12 @@ void SdoTransfer::SetMaskForValue()
 {
 	const UINT sdoDataSize = QMetaType::sizeOf(this->metaDataTypeIndex);
 
+	this->sdoTransferData = QVariant(this->metaDataTypeIndex, NULL);
+
 	// SEtting to FFFFF...
 	quint64 maxUnsignedDataVal = (~((quint64)0x0));
 	maxUnsignedDataVal = (~((quint64)(maxUnsignedDataVal << (sdoDataSize * 8))));
+
 	switch (this->metaDataTypeIndex)
 	{
 		case QMetaType::UInt:
@@ -326,8 +345,6 @@ void SdoTransfer::SetMaskForValue()
 								.arg(sdoDataSize * 2)
 								.arg(decDataLen));
 			this->sdoValueValidator = new QRegExpValidator(validateStr, this);
-
-			this->sdoTransferData = QVariant(this->metaDataTypeIndex, NULL);
 			break;
 		}
 		case QMetaType::Int:
@@ -357,8 +374,6 @@ void SdoTransfer::SetMaskForValue()
 			}
 
 			this->sdoValueValidator = new QRegExpValidator(validateStr, this);
-
-			this->sdoTransferData = QVariant(this->metaDataTypeIndex, NULL);
 			break;
 		}
 		case QMetaType::QString:
@@ -388,6 +403,8 @@ void SdoTransfer::UpdateSdoTransferReturnValue()
 {
 	const UINT sdoDataSize = QMetaType::sizeOf(this->metaDataTypeIndex);
 
+	qDebug("sdoDataSize %d", sdoDataSize);
+
 	switch (this->metaDataTypeIndex)
 	{
 		case QMetaType::UInt:
@@ -403,7 +420,8 @@ void SdoTransfer::UpdateSdoTransferReturnValue()
 				qDebug("Conversion failed ULONGLONG. MetaType %d", this->metaDataTypeIndex);
 			}
 
-			this->ui.sdoResultValue->setText(QString("0x%1")
+			this->ui.sdoResultValue->setText(QString("%1").arg(data));
+			this->ui.sdoResultValueHex->setText(QString("0x%1")
 						.arg(data, (sdoDataSize * 2), 16, QLatin1Char('0')));
 			break;
 		}
@@ -420,7 +438,8 @@ void SdoTransfer::UpdateSdoTransferReturnValue()
 				qDebug("Conversion failed LONGLONG. MetaType %d", this->metaDataTypeIndex);
 			}
 
-			this->ui.sdoResultValue->setText(QString("0x%1")
+			this->ui.sdoResultValue->setText(QString("%1").arg(data));
+			this->ui.sdoResultValueHex->setText(QString("0x%1")
 						.arg(data, (sdoDataSize * 2), 16, QLatin1Char('0')));
 			break;
 		}
@@ -497,7 +516,8 @@ bool SdoTransfer::IsValidValue()
 			//TODO if loop double check. failing
 			//check the data size
 			if (((this->maxDataValue - data) >= 0)
-					|| (data >= this->minDataValue) || (!res))
+					|| (data >= this->minDataValue)
+					|| (!res))
 			{
 				result = true;
 			}
