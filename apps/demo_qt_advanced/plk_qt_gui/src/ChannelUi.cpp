@@ -76,7 +76,14 @@ ChannelUi::ChannelUi(const Channel &channel, QWidget *parent) :
 	else
 	{
 		this->ui.forceValue->setMaxLength(1);
-		this->ui.forceValue->setInputMask("H");
+		if (this->channel.GetBitSize() == 1)
+		{
+			this->ui.forceValue->setInputMask("B");
+		}
+		else
+		{
+			this->ui.forceValue->setInputMask("H");
+		}
 	}
 }
 
@@ -108,6 +115,16 @@ void ChannelUi::UpdateInputChannelCurrentValue(ProcessImageIn *in)
 {
 	try
 	{
+		if (this->ui.force->checkState() == Qt::Checked)
+		{
+			const QString forceValue = this->GetForceValue();
+			const qlonglong forc = forceValue.toLongLong(0, 16);
+			// qDebug("%u", forc);
+			in->SetRawValue(this->channel.GetName(),
+							(const void*) &forc,
+							this->channel.GetBitSize());
+		}
+
 		std::vector<BYTE> value = in->GetRawData(this->channel.GetBitSize(),
 												this->channel.GetByteOffset(),
 												this->channel.GetBitOffset());
@@ -119,16 +136,6 @@ void ChannelUi::UpdateInputChannelCurrentValue(ProcessImageIn *in)
 			string.append(QString("%1").arg(*it, 0, 16)).rightJustified(2, '0');
 		}
 		this->SetCurrentValue(string);
-
-		if (this->ui.force->checkState() == Qt::Checked)
-		{
-			const QString forceValue = this->GetForceValue();
-			const qlonglong forc = forceValue.toLongLong(0, 16);
-			// qDebug("%u", forc);
-			in->SetRawValue(this->channel.GetName(),
-							(const void*) &forc,
-							this->channel.GetBitSize());
-		}
 	}
 	catch(const std::exception& ex)
 	{
@@ -173,7 +180,7 @@ void ChannelUi::UpdateOutputChannelCurrentValue(const ProcessImageOut *out)
 
 void ChannelUi::SetCurrentValue(QString setStr)
 {
-	this->ui.currentValue->setText(setStr);
+	this->ui.currentValue->setText(setStr.toUpper());
 }
 
 const QString ChannelUi::GetForceValue() const
