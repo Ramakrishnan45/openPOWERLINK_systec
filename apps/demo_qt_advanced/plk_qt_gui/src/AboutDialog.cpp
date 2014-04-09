@@ -39,9 +39,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*******************************************************************************
 * INCLUDES
 *******************************************************************************/
-
 #include "AboutDialog.h"
 #include <QDateTime>
+
+//Todo add the below include in <oplk/version.h>
+#include <oplk/oplkdefs.h>
+
+#include <oplk/version.h>
 
 /*******************************************************************************
 * Module global variables
@@ -58,7 +62,8 @@ AboutDialog::AboutDialog(QWidget *parent) :
 	this->ui.setupUi(this);
 	this->ui.builtOn->setText(buildTime);
 	// TODO get version from stack
-	this->ui.stackVersion->setText("oplk v2.0-b1");
+
+	this->ui.stackVersion->setText((char*) PLK_DEFINED_STRING_VERSION);
 }
 
 /*******************************************************************************
