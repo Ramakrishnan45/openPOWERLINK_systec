@@ -116,6 +116,7 @@ void NodeStatusDock::HandleMnStateChanged(tNmtState nmtState)
 			if ((*it)->GetNodeId() != kmnNodeId)
 			{
 				(*it)->hide();
+				emit SignalNodeNotActive((*it)->GetNodeId());
 			}
 		}
 	}
