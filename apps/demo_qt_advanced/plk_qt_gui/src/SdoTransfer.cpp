@@ -92,7 +92,6 @@ SdoTransfer::SdoTransfer(QWidget *parent) :
 	sdoValueValidator(NULL)
 {
 	this->ui.setupUi(this);
-	this->ui.sdoTransferLog->setLineWrapMode(QTextEdit::NoWrap);
 	this->ui.dataType->clear();
 
 	UINT index;
@@ -799,5 +798,4 @@ void SdoTransfer::UpdateLog(const QString& logMessage)
 	log.append(logMessage);
 
 	emit SignalSdoLog(log);
-	this->ui.sdoTransferLog->append(log);
 }
