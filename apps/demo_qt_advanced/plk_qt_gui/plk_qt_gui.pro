@@ -55,7 +55,6 @@ SOURCES += src/main.cpp \
 	src/ChannelUi.cpp \
 	src/NodeUi.cpp \
 	src/AboutDialog.cpp \
-	src/DataSyncThread.cpp \
 	src/StatusBar.cpp
 
 HEADERS  += include/MainWindow.h \
@@ -70,7 +69,6 @@ HEADERS  += include/MainWindow.h \
 	include/ChannelUi.h \
 	include/NodeUi.h \
 	include/AboutDialog.h \
-	include/DataSyncThread.h \
 	include/StatusBar.h
 
 FORMS    += ui/MainWindow.ui \
