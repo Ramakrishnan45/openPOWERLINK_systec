@@ -39,7 +39,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*******************************************************************************
 * INCLUDES
 *******************************************************************************/
-#include <QXmlStreamReader>
+#include <QtCore/QXmlStreamReader>
 
 #include "user/processimage/ProcessImageParser.h"
 #include "user/processimage/Direction.h"
