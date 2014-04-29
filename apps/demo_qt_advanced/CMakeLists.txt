@@ -7,10 +7,16 @@ INCLUDE(../common/cmake/options.cmake)
 SET(DEMO_PLK_QT_LIB_DIR ${CMAKE_SOURCE_DIR}/plk_qt_api)
 SET(DEMO_PLK_QT_LIB_INCLUDE_DIR ${DEMO_PLK_QT_LIB_DIR}/include)
 SET(DEMO_PLK_QT_LIB_SOURCE_DIR ${DEMO_PLK_QT_LIB_DIR}/src)
+
+IF (WIN32)
 SET(CFG_QT_INSTALL_PATH "C:\\Qt\\Qt5.2.0\\5.2.0\\msvc2010" CACHE PATH "Add the QT installation path as same as the sample")
+ELSE(WIN32)
+SET(CFG_QT_INSTALL_PATH "/opt/Qt5.2.1/5.2.1/gcc" CACHE PATH "Add the QT installation path as same as the sample")
+ENDIF (WIN32)
 
 SET(CMAKE_PREFIX_PATH ${CFG_QT_INSTALL_PATH})
-#TODO should be in GUI?
+
+SET(OBJDICT CiA302-4_MN)            # Set object dictionary to use
 FIND_OPLK_LIBRARY("mn")             # Find suitable openPOWERLINK library
 
 ################################################################################
@@ -65,7 +71,7 @@ ENDIF()
 SET(PLK_QT_BINARY_DIR "${CMAKE_SOURCE_DIR}/bin")
 
 IF(${OPLK_QT_API_LIB})
-        ADD_SUBDIRECTORY(plk_qt_api)
+        #ADD_SUBDIRECTORY(plk_qt_api)
 ENDIF(${OPLK_QT_API_LIB})
 
 IF(${OPLK_QT_MN_GUI})
