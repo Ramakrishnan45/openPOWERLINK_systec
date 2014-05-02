@@ -82,10 +82,7 @@ private slots:
 	 */
 	void on_dataType_currentIndexChanged(const QString &dataType);
 
-	/**
-	 * \brief Validates the value after the editing has been completed.
-	 */
-	void on_sdoResultValue_editingFinished();
+	void on_sdoResultValue_textEdited(const QString &arg1);
 
 signals:
 	void SignalSdoLog(const QString& logMessage);
@@ -148,6 +145,7 @@ private:
 	 */
 	void SetMaskForValue();
 
+	void SetMinMax(QMetaType::Type datatype);
 	/**
 	 * \brief Updates the log message to the SDO Transfer log with the date time.
 	 * \param[in] logMessage The message to be updated.

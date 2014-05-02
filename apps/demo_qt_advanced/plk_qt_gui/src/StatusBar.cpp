@@ -36,6 +36,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 * INCLUDES
 *******************************************************************************/
 #include "StatusBar.h"
+#include "QtCore/QLocale"
+#include "QtWidgets/QSplitter"
 
 #include "api/OplkQtApi.h"
 #include "oplk/debugstr.h"
@@ -52,9 +54,12 @@ StatusBar::StatusBar(QWidget *parent) :
 	this->cdcFile->setMinimumWidth(175);
 	this->xapFile->setMinimumWidth(175);
 
-	this->addWidget(this->networkInterface);
-	this->addWidget(this->cdcFile);
-	this->addWidget(this->xapFile);
+	QSplitter *split = new QSplitter();
+	split->setHandleWidth(4);
+	split->addWidget(this->networkInterface);
+	split->addWidget(this->cdcFile);
+	split->addWidget(this->xapFile);
+	this->addWidget(split);
 
 	QFont font;
 	font.setCapitalization(QFont::AllUppercase);
@@ -112,7 +117,9 @@ void StatusBar::UpdateCycleTime()
 	if (oplkRet != kErrorOk)
 		qDebug("Cycle time read error: %s", debugstr_getRetValStr(oplkRet));
 
-	this->cycleTime->setText(QString("Cycle time: =%1 us").arg(cycleTime));
+	this->cycleTime->setText(QString("Cycle time: %1 %2s")
+							 .arg(QLocale(QLocale::English).toString((qulonglong)cycleTime))
+							 .arg(QString::fromUtf8("\xc2\xb5")));
 }
 
 void StatusBar::SetCdcFilePath(QString& cdc)
@@ -131,7 +138,7 @@ void StatusBar::SetNetworkInterfaceName(const QString& name)
 {
 	const QString devName = name.simplified();
 	this->networkInterface->setToolTip(devName);
-	this->networkInterface->setText(devName.left(30));
+	this->networkInterface->setText(devName);
 }
 
 //can be moved to Utility

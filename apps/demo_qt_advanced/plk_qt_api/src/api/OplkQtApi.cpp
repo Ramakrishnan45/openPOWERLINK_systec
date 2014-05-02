@@ -194,9 +194,9 @@ tOplkError OplkQtApi::StopStack()
 	}
 
 	OplkEventHandler::GetInstance().AwaitNmtGsOff();
-	
+
 	DataSyncThread::GetInstance().requestInterruption();
-	
+
 	// TODO Set ProcessImage::data to NULL;
 	oplkRet = oplk_freeProcessImage();
 	if (oplkRet != kErrorOk)
@@ -348,7 +348,19 @@ bool OplkQtApi::UnregisterProcessImageSync(Direction::Direction direction,
 tOplkError OplkQtApi::ExecuteNmtCommand(const UINT nodeId,
 						tNmtCommand nmtCommand)
 {
-	return oplk_execRemoteNmtCommand(nodeId, nmtCommand);
+	//TODO Exception of unsupported commands.
+//	if ((nmtCommand < 0x20) && (nmtCommand > 0x3F))
+//	{
+//		//Throw exception as given NmtCommand not supported.
+//		std::ostringstream message;
+//		message << "Requested NMT command '" << (UINT)nmtCommand << "' is not supported.";
+//		throw std::invalid_argument(message.str());
+//	}
+
+	if (nodeId == OplkQtApi::initParam.nodeId)
+		return oplk_writeLocalObject(0x1F9E, 0x00, &nmtCommand, sizeof(UINT8));
+	else
+		return oplk_execRemoteNmtCommand(nodeId, nmtCommand);
 }
 
 tOplkError OplkQtApi::TransferObject(const SdoTransferJob& sdoTransferJob,

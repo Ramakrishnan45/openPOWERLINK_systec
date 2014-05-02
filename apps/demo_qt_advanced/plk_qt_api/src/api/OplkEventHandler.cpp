@@ -241,7 +241,7 @@ tOplkError OplkEventHandler::ProcessNmtStateChangeEvent(
 			// also shut down stack
 			oplkRet = kErrorShutdown;
 
-			oplk_freeProcessImage(); //jba do we need it here?
+		//oplk_freeProcessImage(); //jba do we need it here?
 
 			OplkEventHandler::TriggerPrintLog(
 				QString("NMTStateChangeEvent(0x%1) originating event = 0x%2 (%3)")
@@ -374,6 +374,9 @@ tOplkError OplkEventHandler::ProcessNodeEvent(tOplkApiEventNode* nodeEvent,
 
 		case kNmtNodeEventFound:
 			OplkEventHandler::TriggerNodeFound(nodeEvent->nodeId);
+			OplkEventHandler::TriggerPrintLog(
+					QString("Node Event: (Node=%1, NodeFound)")
+					.arg(nodeEvent->nodeId));
 			break;
 
 		case kNmtNodeEventNmtState:
@@ -521,7 +524,7 @@ tOplkError OplkEventHandler::ProcessCfmResultEvent(
 tOplkError OplkEventHandler::ProcessPdoChangeEvent(tOplkApiEventPdoChange* pdoChange,
 												void* userArg)
 {
-	UINT64                      mappObject;
+	UINT64 mappObject;
 	UINT varLen        = sizeof(mappObject);
 	tOplkError oplkRet = kErrorGeneralError;
 
@@ -552,7 +555,7 @@ tOplkError OplkEventHandler::ProcessPdoChangeEvent(tOplkApiEventPdoChange* pdoCh
 					QString("  %1. mapped object 0x%2/%3")
 					.arg(subIndex)
 					.arg(mappObject & 0x00FFFFULL, 4, 16, QLatin1Char('0'))
-					.arg((mappObject & 0xFF0000ULL) >> 16, 4, 16, QLatin1Char('0')));
+					.arg((mappObject & 0xFFFF00ULL) >> 16, 2, 16, QLatin1Char('0')));
 	}
 
 	return kErrorOk;
