@@ -76,7 +76,7 @@ ConsoleReader::ConsoleReader()
 }
 
 // TODO: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
-// Remove const for std:datattypes
+// Remove const for std:datatypes
 const ULONG ConsoleReader::GetSdoReadData() const
 {
 	return (this->sdoReadData);
@@ -100,7 +100,7 @@ void ConsoleReader::run()
 	}
 	catch(const std::exception& ex)
 	{
-		qDebug("An Exception has occured: %s", ex.what());
+		qDebug("An Exception has occurred: %s", ex.what());
 	}
 
 	std::ifstream ifsXap(this->xapFileName.c_str());
@@ -114,7 +114,7 @@ void ConsoleReader::run()
 	}
 	catch(const std::exception& ex)
 	{
-		qDebug("An Exception has occured: %s", ex.what());
+		qDebug("An Exception has occurred: %s", ex.what());
 	}
 
 	ProcessImageIn& piIn = static_cast<ProcessImageIn&>(pi->GetProcessImage(Direction::PI_IN));
@@ -279,7 +279,7 @@ void ConsoleReader::run()
 					}
 					catch(const std::exception& ex)
 					{
-						qDebug("An Exception has occured: %s", ex.what());
+						qDebug("An Exception has occurred: %s", ex.what());
 					}
 
 					break;
@@ -312,14 +312,14 @@ void ConsoleReader::run()
 					}
 					catch(const std::exception& ex)
 					{
-						qDebug("An Exception has occured: %s", ex.what());
+						qDebug("An Exception has occurred: %s", ex.what());
 					}
 					break;
 				}
 				case 's':
 				case 'S':
 				{
-					if(stackStarted)
+					if (stackStarted)
 					{
 						oplkRet = OplkQtApi::StopStack();
 						if (oplkRet != kErrorOk)
