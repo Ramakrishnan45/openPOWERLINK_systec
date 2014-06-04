@@ -47,13 +47,6 @@ ENDIF()
 STRING(TOLOWER "${CMAKE_SYSTEM_NAME}" SYSTEM_NAME_DIR)
 STRING(TOLOWER "${CMAKE_SYSTEM_PROCESSOR}" SYSTEM_PROCESSOR_DIR)
 
-IF(CFG_OPLK_MN)
-    SET(EXE_NAME oplkmnd-pcap)
-ELSE()
-    SET(EXE_NAME oplkcnd-pcap)
-ENDIF()
-MESSAGE(STATUS "Configuring ${EXE_NAME}")
-
 ###############################################################################
 # Set global directories
 ###############################################################################
@@ -96,10 +89,14 @@ ENDIF()
 
 # select libary and search for it
 IF(CFG_OPLK_MN)
+    SET(EXE_NAME oplkmnd-pcap)    
     SET(LIB_NAME oplkmndrv-pcap)
 ELSE()
+    SET(EXE_NAME oplkcnd-pcap)
     SET(LIB_NAME oplkcndrv-pcap)
 ENDIF()
+
+MESSAGE(STATUS "Configuring ${EXE_NAME}")
 
 SET(OPLKLIB_DIR ${OPLK_ROOT_DIR}/stack/lib/${SYSTEM_NAME_DIR}/${SYSTEM_PROCESSOR_DIR})
 SET(OPLKLIB_INCDIR ${OPLK_ROOT_DIR}/stack/proj/${SYSTEM_NAME_DIR}/lib${LIB_NAME})
